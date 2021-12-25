@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define MAX 50
+
+int main()
+{
+    char *hoten=(char *)malloc(MAX*sizeof(char));
+    printf("Nhap ho ten sinh vien : \n");
+    gets(hoten);
+    printf("Ho va ten cua sinh vien vua nhap la %s \n",hoten);
+
+    int i = strlen(hoten);
+    while(hoten[i]!=' ') i--;
+
+    char *ten=(char *)malloc(MAX*sizeof(char));
+    strcpy(ten,hoten+i+1);
+    printf("Ten duoc tach ra : \n");
+    puts(ten);
+
+    char *holot=(char *)malloc(MAX*sizeof(char));
+    strncpy(holot,hoten,i);
+    *(holot+i)='\0';
+    printf("Ho lot duoc tach ra : \n");
+    puts(holot);
+    free(ten);
+    free(holot);
+}
