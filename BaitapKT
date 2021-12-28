@@ -1,0 +1,78 @@
+Câu 1 : (2.0 điểm) Để quản lý điểm thi môn KỸ THUẬT LẬP TRÌNH của hai lớp
+DHTH16A và DHTH16B, người ta sử dụng cấp phát vùng nhớ động (vùng nhớ heap) để lưu trữ 
+điểm thi cuối kỳ (viết tắt CK) là các số thực thỏa mãn (0 ≤ CK ≤10). Anh/chị hãy dùng ngôn ngữ 
+C, viết chương trình thực hiện tuần tự các công việc sau:
+a) (1.0 điểm) Nhập điểm thi của n sinh viên lớp DHTH16A vào vùng nhớ do con trỏ A trỏ tới, 
+nhập điểm thi của m sinh viên lớp DHTH16B vào vùng nhớ do con trỏ B trỏ tới (m, n >0 ). 
+Yêu cầu có kiểm tra tính hợp lệ của điểm nhập vào. 
+b) (1.0 điểm) Tính tỉ lệ % sinh viên phải học lại của mỗi lớp (sinh viên có điểm thi < 3 phải 
+học lại). Sau đó hiển thị thông báo lớp có tỉ lệ % sinh viên học lại nhiều hơn. 
+
+#include<stdio.h>
+
+void nhapdiem(float *a, float &n)
+{
+    printf("Nhap so luong thanh vien cua lop : \n");
+    scanf("%f",&n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("Nhap diem thanh vien : %d ", i+1);
+        scanf("%f",(a+i));
+        while (*(a+i) < 0 || *(a+i) > 10)
+        {
+            printf("Nhap lai diem sinh vien %d ",i+1);
+            scanf("%f",(a+i));
+        }
+    }
+}
+void xuatdiem(float *a, float n)
+{
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("%2.f\t",*(a+i));
+    }
+}
+double tylehoclai(float *a, float n)
+{   
+    float dem = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if(*(a+i) < 3.0)
+        {
+            dem++;
+        }
+    }
+    return dem/n*1.0;
+}
+void hoclai(float *a , float na , float *b , float nb)
+{
+    double x , y ;
+    x = tylehoclai(a,na);
+    y = tylehoclai(b,nb);
+    if (x > y)
+    {
+        printf("Lop DHTH17G");
+    }
+    if(x < y)
+    {
+        printf("Lop DHTH17E");
+    }
+}
+int main()
+{
+
+    float *a,na,*b,nb;
+
+    a = new float[100];
+    b = new float[100];
+    printf("Nhap diem DHTH17G : \n");
+    nhapdiem(a,na);
+    printf("\nDiem cua lop DHTH17G : ");
+    xuatdiem(a,na);
+    printf("\nNhap diem DHTH17E : \n");
+    nhapdiem(b,nb);
+    printf("\nDiem cua lop DHTH17E : ");
+    xuatdiem(b,nb);
+    printf("\nTy le rot : ");
+    hoclai(a,na,b,nb);
+}
