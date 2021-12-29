@@ -1,0 +1,74 @@
+#define MAX 100
+#include<string.h>
+#include<stdio.h>
+#include<ctype.h>
+
+void inhoa(char s[])
+{
+    s[0] = toupper(s[0]);
+    for(int i = 0 ; i < strlen(s);i++)
+    {
+        if (s[i]==' ')
+        {
+            s[i+1] = toupper(s[i+1]);
+        }
+        else
+        {
+            s[i+1] = tolower(s[i+1]);
+        }
+    }
+    puts(s);
+}
+void xoakytu(char s[],int n)
+{
+    for(int j = n ; j < strlen(s); j++)
+    {
+        s[j] = s [j+1];
+    }
+}
+void standard(char s[])
+{
+   for(int i = 0 ; i < strlen(s) ; i++)
+    {
+        if(s[i] == ' ' && s[i+1] == ' ')
+        {
+            xoakytu(s,i);
+            i--;
+        }
+        if(s[0] == ' ')
+        {
+            xoakytu(s,0);
+        }
+        if (s[strlen(s)-1] == ' ')
+	    {
+	        xoakytu(s,strlen(s)-1);
+	    }
+    }
+    puts(s);
+}
+void demsotu(char s[])
+{
+    int dem = 1;
+    for(int i = 0 ; i < strlen(s) ; i++)
+    {
+        if (s[i] == ' ')
+        {
+            dem++;
+        }
+    }
+    printf("%d",dem);
+}
+int main()
+{
+    char s[MAX];
+    printf("Nhap chuoi : ");
+    gets(s);
+    printf("\nChuoi da nhap : ");
+    puts(s);
+    printf("\nIn hoa : ");
+    inhoa(s);
+    printf("\nTieu chuan : ");
+    standard(s);
+    printf("\nSo tu : ");
+    demsotu(s);
+}
