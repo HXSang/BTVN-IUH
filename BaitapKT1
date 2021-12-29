@@ -1,0 +1,52 @@
+Câu 4 : ( 2.0 điểm)
+Cho hàm long TinhTien(int songay, int sogiuong) để tính tiền một phòng của một 
+resort. Biết rằng: 
+Đầu vào: 
+• 1 <= số ngày < 7 
+• 0 <= số giường <= 2 
+Đầu ra: 
+• Nếu đầu vào thỏa mãn điều kiện thì hàm trả về số tiền khách hàng phải trả biết: 
+. phòng 0 giường (lều): 200 000/ngày
+. phòng 1 giường: 500 000/ngày
+. phòng 2 giường: 800 000/ngày
+• Ngược lại trả về giá trị -1. 
+• Thành tiền = số ngày * giá phòng
+Yêu cầu: Anh/chị hãy sử dụng kỹ thuật kiểm thử biên mạnh để thiết kế các test case cho hàm
+TinhTien ( ) được mô tả ở trên.
+
+
+#include<stdio.h>
+#include<conio.h>
+
+long TinhTien(int songay, int sogiuong)
+{
+    if(songay >= 7 || songay < 1 || sogiuong < 0 || sogiuong > 2)
+    {
+        return -1;
+    }
+    else
+    {
+        if (sogiuong == 0)
+        {
+            return 200000*songay;
+        }
+        else if (sogiuong == 1)
+        {
+            return 500000*songay;
+        }
+        else if (sogiuong == 2)
+        {
+            return 800000*songay;
+        }
+    }
+}
+int main()
+{
+    int songay, sogiuong,giatien;
+    printf("Nhap so ngay : ");
+    scanf("%d",&songay);
+    printf("Nhap so giuong : ");
+    scanf("%d",&sogiuong);
+    giatien = TinhTien(songay,sogiuong);
+    printf("Gia tien la : %ld",giatien);
+}
