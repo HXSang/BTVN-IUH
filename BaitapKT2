@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct KHACHSAN
+{
+    char maphong[20];
+    char tenkh[20];
+    char ngaythue[20];
+};
+void Nhapdulieu(KHACHSAN &kh )
+{
+    printf("\nNhap ma phong : ");
+    fflush(stdin);
+    gets(kh.maphong);
+    printf("\nNhap ten khach hang : ");
+    fflush(stdin);
+    gets(kh.tenkh);
+    printf("\nNhap ngay thue : ");
+    fflush(stdin);
+    gets(kh.ngaythue);
+}
+void Xuatdulieu(KHACHSAN kh)
+{
+    printf("\nMa phong : %s",kh.maphong);
+    printf("\nTen khach hang : %s",kh.tenkh);
+    printf("\nNgay thue : %s",kh.ngaythue);
+}
+void Nhapdanhsach(KHACHSAN ds[] , int &n)
+{
+    printf("Nhap so khach hang : ");
+    scanf("%d",&n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        Nhapdulieu(ds[i]);
+    }
+}
+void Xuatdanhsach(KHACHSAN ds[] , int n)
+{
+    for(int i = 0 ; i < n ; i++)
+    {
+        Xuatdulieu(ds[i]);
+    }
+}
+int main(int argc, char *argv)
+{
+    struct KHACHSAN ds[100];
+    int n;
+    Nhapdanhsach(ds,n);
+    Xuatdanhsach(ds,n);
+    return 0;
+}
