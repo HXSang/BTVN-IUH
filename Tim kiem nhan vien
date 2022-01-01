@@ -1,0 +1,94 @@
+#include<stdio.h>
+#include<string.h>
+typedef struct NHANVIEN
+{
+    char Ma_nv[20];
+    char Ten_nv[30];
+    char don_vi[20];
+    float hs_luong;
+}NHANVIEN;
+
+void nhapnv(NHANVIEN &p)
+{
+    printf("\nNhap ma nhan vien : ");
+    fflush(stdin);
+    gets(p.Ma_nv);
+    printf("\nNhap ten nhan vien : ");
+    fflush(stdin);
+    gets(p.Ten_nv);
+    printf("\nNhap don vi nhan vien : ");
+    fflush(stdin);
+    gets(p.don_vi);
+    printf("\nNhap he so nhan vien : ");
+    scanf("%f",&p.hs_luong);
+}void xuatnv(NHANVIEN p)
+{
+    printf("\nMa nhan vien : %s",p.Ma_nv);
+    printf("\nTen nhan vien : %s",p.Ten_nv);
+    printf("\nDon vi nhan vien : %s",p.don_vi);
+    printf("\nHe so luong nhan vien : %f",p.hs_luong);
+}
+void Nhapdanhsach(NHANVIEN nv[], int &n)
+{
+    printf("\nNhap so luong nhan vien : ");
+    scanf("%d",&n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        nhapnv(nv[i]);
+    }
+}
+void Xuatdanhsach(NHANVIEN nv[], int n)
+{
+    for(int i = 0 ; i < n ; i++)
+    {
+        xuatnv(nv[i]);
+    }
+}
+int Search_Ma_nv(NHANVIEN nv[], int n , char MaCTim[])
+{
+    printf("\nNhap ma nhan vien can tim : ");
+    fflush(stdin);
+    gets(MaCTim);
+    for(int i = 0 ; i < n ; i++)
+    {
+        if (strcmp(nv[i].Ma_nv, MaCTim)== 0)
+            return i;
+    }
+    return -1;
+}
+void Search_nv(NHANVIEN nv[],int n , int vitri)
+{
+    bool flag = false;
+    for(int i = 0 ; i < n ; i++)
+    {
+        if(strcmp(nv[i].don_vi,nv[vitri].don_vi)== 0 && i!= vitri)
+        {
+            flag = true;
+            xuatnv(nv[i]);
+        }
+    }
+    if(!flag)
+    {
+        printf("Khong co nhan vien nao cung don vi \n");
+    }
+}
+int main(int argc , char *argv[])
+{
+    NHANVIEN nv[200];
+    int n ;
+    Nhapdanhsach(nv,n);
+    Xuatdanhsach(nv,n);
+    char MaCTim[20];
+    int kq = Search_Ma_nv(nv,n,MaCTim);
+    if(kq==-1)
+    {
+        printf("Khong tim thay nhan vien ");
+    }
+    else
+    {
+        printf("Nhan vien o vi tri %d\n",kq);
+        Search_nv(nv,n,kq);
+
+    }
+    return 0;
+}
