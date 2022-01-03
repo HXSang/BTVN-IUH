@@ -1,0 +1,291 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<algorithm>
+#include<windows.h>
+#define MAX 100
+
+int count = 0;
+
+struct DIEM
+{
+    float tk,gk,ck,th;
+};
+
+struct SINHVIEN
+{
+    char hoten[30];
+    char mssv[8];
+    float dtb;
+    DIEM diem;
+};
+
+void nhapsv(SINHVIEN &a)
+{
+    fflush(stdin);
+    printf("\nNhap ten sinh vien : ");
+    gets(a.hoten);
+
+    fflush(stdin);
+    printf("\nNhap ma sinh vien : ");
+    gets(a.mssv);
+
+    printf("\nNhap diem thuong ky : ");
+    scanf("%f",&a.diem.tk);
+    while(a.diem.tk < 0 || a.diem.tk > 10)
+    {
+        printf("\nNhap sai !!! Vui long nhap lai ");
+        scanf("%f",&a.diem.tk);
+    }
+
+    printf("\nNhap diem cuoi ky : ");
+    scanf("%f",&a.diem.ck);
+    while(a.diem.ck < 0 || a.diem.ck > 10)
+    {
+        printf("\nNhap sai !!! Vui long nhap lai ");
+        scanf("%f",&a.diem.ck);
+    }
+
+    printf("\nNhap diem thuc hanh : ");
+    scanf("%f",&a.diem.th);
+    while(a.diem.th < 0 || a.diem.th > 10)
+    {
+        printf("\nNhap sai !!! Vui long nhap lai ");
+        scanf("%f",&a.diem.th);
+    }
+
+    printf("\nNhap diem giua ky : ");
+    scanf("%f",&a.diem.gk);
+    while(a.diem.gk < 0 || a.diem.gk > 10)
+    {
+        printf("\nNhap sai !!! Vui long nhap lai ");
+        scanf("%f",&a.diem.gk);
+    }
+    printf("\n");
+}
+
+void nhapdssv(SINHVIEN a[], int &n)
+{
+    printf("\nNhap so luong sinh vien : ");
+    scanf("%d",&n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("Nhap sinh vien thu %d  ",i+1);
+        printf("\n");
+        nhapsv(a[i]);
+    }
+}
+
+float DTB(SINHVIEN a)
+{
+    return (((2*a.diem.tk + 3*a.diem.gk + 5*a.diem.ck)/10)*2 + a.diem.th)/3;
+}
+void xuatsv(SINHVIEN a)
+{
+    printf("\nTen sinh vien : %s", a.hoten);
+    printf("\nMa sinh vien : %s",a.mssv);
+    printf("\nDiem thuong ky : %.2f",a.diem.tk);
+    printf("\nDiem cuoi ky : %.2f",a.diem.ck);
+    printf("\nDiem thuc hanh : %.2f",a.diem.th);
+    printf("\nDiem trung binh : %.2f",DTB(a));
+}
+
+void xuatdssv(SINHVIEN a[], int n)
+{
+    for(int i = 0 ; i < n ; i++)
+    {
+        xuatsv(a[i]);
+    }
+}
+
+void bangsv(SINHVIEN a[], int n)
+{
+    int note[MAX];
+    for(int i = 0 ; i < n ; i++)
+    {
+        if (DTB(a[i]) < 4.0)
+            note[i] = 1;
+        else
+            note[i] = 0;
+    }
+    printf("\n\t==============================================================================================================");
+	printf("\n\t|%4s | %-20s | %-9s | %-8s | %-8s | %-8s | %-8s | %-8s | %-10s |  ","STT","HO TEN", "MA SV", "TK","GK","CK", "TH","DTB","GI CHU");
+	printf("\n\t==============================================================================================================");
+	for(int i = 0 ; i < n ; i++)
+    {
+      printf("\n\t|%4d | %-20s | %-9s | %-8.2f | %-8.2f | %-8.2f | %-8.2f | %-8.2f |  ", i + 1,a[i].hoten,a[i].mssv,a[i].diem.tk,a[i].diem.gk,a[i].diem.ck,a[i].diem.th,DTB(a[i]));
+      if (note[i] == 1)
+        printf("Hoc lai   |");
+      else
+        printf("          |");
+      printf("\n\t--------------------------------------------------------------------------------------------------------------");
+    }
+
+}
+
+void dstb(SINHVIEN a[], int n)
+{
+    count = 0 ;
+    int j = 0 ;
+    float key = 4.0;
+    printf("\n\n\t   DANH SACH SINH VIEN CO DIEM TRUNG BINH BE HON 4");
+	printf("\n\n\n");
+	printf("\t=====================================================");
+	printf("\n\t|%4s | %-20s | %-9s | %-8s |","STT","HO TEN","MA SV","DIEM TB");
+	printf("\n\t=====================================================");
+	for(int i = 0 ; i < n ; i++)
+    {
+        if(DTB(a[i]) < key)
+        {
+            j++;
+            printf("\n\t|%4d | %-20s | %-9s | %-8.2f |", j ,a[i].hoten,a[i].mssv,DTB(a[i]));
+			printf("\n\t-----------------------------------------------------");
+        }
+        else
+        {
+            count++;
+        }
+    }
+	if(count == n)
+    {
+        printf("\n\tKhong co sinh vien nao");
+    }
+}
+
+void timkiem(SINHVIEN a[], int n)
+{
+    count = 0 ;
+    char c[MAX];
+    fflush(stdin);
+	printf("\n\nNhap MaSV can tim: ");
+	gets(c);
+
+	for(int i = 0 ; i < n ; i++)
+    {
+        if(strcmp(a[i].mssv,c)==0)
+        {
+            xuatsv(a[i]);
+            count++;
+        }
+    }
+    if(!count)
+    {
+       printf("\nKhong tim thay sinh vien nao!!!");
+    }
+}
+
+void sapxep(SINHVIEN a[], int n)
+{
+    SINHVIEN tmp;
+    for(int i = 0;i < n;i++) {
+        for(int j = i+1; j < n;j++) {
+            if(a[i].dtb > a[j].dtb) {
+                tmp = a[i];
+                a[i] = a[j];
+                a[j] = tmp;
+            }
+        }
+    }
+    bangsv(a,n);
+}
+
+void themsv(SINHVIEN a[], int &n , SINHVIEN &sv , int &vt)
+{
+    printf("\nNhap thong tin sinh vien : ");
+    nhapsv(sv);
+    printf("\nNhap vi tri can them : ");
+    scanf("%d",&vt);
+    for (int i = n ; i > vt ; i--)
+    {
+        a[i] = a[i-1];
+    }
+    a[vt] = sv;
+    n++;
+}
+
+void xoasv(SINHVIEN a[], int &n , int &vt)
+{
+    printf("\nNhap vi tri can xoa : ");
+    scanf("%d",&vt);
+    for(int i = vt ; i < n ; i++)
+    {
+        a[i] = a[i+1];
+    }
+    n--;
+}
+
+//void xuatflie(SINHVIEN a[], int n , char tenFile[50])
+//{
+//    FILE *f;
+//    f = fopen(tenFile, "w");
+//    if(f == NULL)
+//    {
+//        printf("\nLoi mo file");
+//        return;
+//    }
+//    for(int i = 0 ; i < n ; i++)
+//    {
+//        fprintf(f,"\n\t|%4s | %-20s | %-9.2f | %-8.2f | ",a.hoten,a.mssv,a.dtb,a.diem.ck);
+//    }
+//    fclose(f);
+//}
+int main()
+{
+    SINHVIEN a[MAX],sv;
+    int n , key , vt;
+    do
+    {
+        printf("\n\t\t\tPRESS ANY KEY");
+        getch();
+
+        printf("CHUONG TRINH QUAN LY SINH VIEN C/C++\n");
+        printf("*************************MENU**************************\n") ;
+        printf("**  1. Nhap danh sanh sinh vien.                     **\n") ;
+        printf("**  2. Xuat sinh vien.                               **\n") ;
+        printf("**  3. Hien thi danh sach sinh vien DTB < 4.0        **\n") ;
+        printf("**  4. Tim kiem sinh vien theo Mssv                  **\n") ;
+        printf("**  5. Sap xep sinh vien theo diem trung binh        **\n") ;
+        printf("**  6. Hien thi danh sach sinh vien.                 **\n") ;
+        printf("**  7. Them sinh vien.                               **\n") ;
+        printf("**  8. Xoa sinh vien.                                **\n") ;
+        printf("**  9. Ghi danh sach sinh vien vao file.             **\n") ;
+        printf("**  0. Thoat                                         **\n") ;
+        printf("*******************************************************\n") ;
+        printf("Nhap tuy chon: ") ;
+        scanf("%d",&key);
+        switch(key)
+            {
+            case 1 :
+                nhapdssv(a,n);
+                break;
+            case 2 :
+                xuatdssv(a,n);
+                break;
+            case 3 :
+                dstb(a,n);
+                break;
+            case 4 :
+                timkiem(a,n);
+                break;
+            case 5 :
+                sapxep(a,n);
+                break;
+          case 6 :
+                xuatdssv(a,n);
+                break;
+            case 7 :
+                themsv(a,n,sv,vt);
+                break;
+            case 8 :
+                xoasv(a,n,vt);
+                break;
+//            case 9 :
+//                xuatflie(a,n,"DU LIEU SINH VIEN.out");
+//                break;
+            case 0 :
+                exit(0);
+            }
+    }
+    while(key >= 0 &&  key <= 8);
+}
