@@ -1,0 +1,141 @@
+#include<stdio.h>
+#include<string.h>
+#include<windows.h>
+struct STUDENT
+{
+    int mssv;
+    char name[25];
+    double diemtb;
+};
+void ghiFlie(STUDENT a[], int n)
+{
+    FILE *fp;
+    fp=fopen("STUDENT.DAT","wb");
+    if(fp == NULL)
+    {
+        printf("\nKhong tao duoc file");
+        return;
+    }
+    fwrite(a,sizeof(STUDENT),n,fp);
+    fclose(fp);
+    printf("\nFile da duoc ghi...");
+}
+
+void nhap1sv(STUDENT &sv)
+{
+    fflush(stdin);
+    printf("\nNhap mssv : ");
+    scanf("%d",&sv.mssv);
+    fflush(stdin);
+    printf("\nNhap ten sinh vien : ");
+    gets(sv.name);
+    printf("\nNhap diem trung binh : ");
+    scanf("%lf",&sv.diemtb);
+
+}
+
+void nhapds(STUDENT a[], int &n)
+{
+    printf("\nNhap so luong sinh vien : ");
+    scanf("%d",&n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("\nNhap sinh vien thu %d : ",i+1);
+        nhap1sv(a[i]);
+    }
+    ghiFlie(a,n);
+}
+
+void xuat1sv(STUDENT sv)
+{
+    printf("\nMSSV : %d",sv.mssv);
+    printf("\nTen sinh vien : %s",sv.name);
+    printf("\nDiem trung binh : %.0lf",sv.diemtb);
+}
+
+void docFile(STUDENT a[], int n)
+{
+    FILE *fp;
+    fp = fopen("STUDENT.DAT","rb");
+    if(fp==NULL)
+    {
+        printf("Khong mo duoc file");
+        return;
+    }
+    fseek(fp,0,SEEK_END);
+    n=ftell(fp)/sizeof(STUDENT);
+    fread(a,sizeof(STUDENT),n,fp);
+	fclose(fp);
+	printf("Da doc noi dung file len mang\n");
+}
+
+void xuatds(STUDENT a[], int &n)
+{
+    docFile(a,n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("\nSinh vien %d:\n",i+1);
+		xuat1sv(a[i]);
+    }
+}
+void suadiem(STUDENT a[],int n)
+{
+    int macandoi;
+    docFile(a,n);
+    printf("\nNhap ma can doi : ");
+    scanf("%d",&macandoi);
+    int vt;
+    double dtb;
+    for(int i = 0 ; i < n ; i++)
+    {
+        if(a[i].mssv == macandoi)
+        {
+            vt = i;
+            break;
+        }
+    }
+    if(vt == NULL)
+        printf("\nKhong tim thay sv");
+    else
+    {
+        printf("Thong tin sinh vien can sua Diem TB:\n");
+		xuat1sv(a[vt]);
+		printf("\nNhap Diem TB can sua: ");
+		scanf("%lf",&dtb);
+		a[vt].diemtb=dtb;
+		printf("Thong tin sinh vien sau khi sua Diem TB:\n");
+		xuat1sv(a[vt]);
+		ghiFlie(a,n);
+    }
+}
+int main()
+{
+    struct STUDENT a[100];
+    int n,chon,vt;
+    do
+    {
+        printf("\n-------------------\n");
+		printf("[1]. Nhap danh sach va Xuat ra tep\n");
+		printf("[2]. Xuat danh sach\n");
+		printf("[3]. Sua\n");
+		printf("[4]. Thoat\n");
+		printf("-------------------\n");
+		printf("Chon tac vu: ");
+		scanf("%d",&chon);
+		switch(chon)
+		{
+        case 1 :
+            nhapds(a,n);
+            break;
+        case 2 :
+            xuatds(a,n);
+            break;
+        case 3 :
+            suadiem(a,n);
+            break;
+        case 4 :
+            exit(0);
+		}
+    }
+    while(chon > 0 && chon <= 4);
+}
