@@ -1,0 +1,30 @@
+Tìm trị phần tử thứ n của 1 cấp số cộng có số hạng đầu là a, công sai là r
+
+
+#include<conio.h>
+#include<stdio.h>
+
+int num(int a, int r , int n)
+{
+    if(n == 1)
+    {
+        return a;
+    }
+    for(int i = 0 ; i < n ; i++)
+    {
+        return num(a,r,n-1) + r;
+    }    
+}
+
+int main()
+{
+    int a, r, n ;
+    printf("\nNhap so hang dau : ");
+    scanf("%d",&a);
+    printf("\nNhap so cong sai : ");
+    scanf("%d",&r);
+    printf("\nNhap can tim gia tri so thu : ");
+    scanf("%d",&n);
+    printf("\nKet qua : %d",num(a,r,n));
+    return 0;
+}
