@@ -1,0 +1,51 @@
+#include<conio.h>
+#include<stdio.h>
+
+int coso2(long int n)
+{
+    if(n < 2)
+    {
+        printf("%ld",n);
+        return 0; 
+    }
+    int d;
+    d = n % 2;
+    coso2(n/2);
+    printf("%d",d);
+}
+long int coso8(long int n)
+{
+    if (n < 8)
+    {
+        printf("%ld",n);
+        return 0;
+    }
+    long int d ;
+    d = n % 8;
+    coso8(n/8);
+    printf("%ld",d);
+}
+long int coso16(long int n)
+{
+    if (n<16)
+    {
+        printf("%ld",n);
+        return 0;
+    }
+    long int d ;
+    d = n % 16;
+    coso16(n/16);
+    printf("%ld",d);
+
+}
+int main()
+{   
+    long int  n;
+    printf("Nhap so can bieu dien : ");
+    scanf("%ld",&n);
+    coso2(n);
+    printf("\n");
+    coso8(n);
+    printf("\n");
+    coso16(n);
+}
