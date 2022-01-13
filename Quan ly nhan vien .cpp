@@ -29,7 +29,7 @@ void nhapds(NHANVIEN ds[] , int &soluong)
 {
     printf("\nNhap so luong nhan vien : ");
     scanf("%d",&soluong);
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < soluong; i++)
     {
         printf("\nNhap sinh vien thu %d ",i+1);
         nhap1nv(ds[i]);
