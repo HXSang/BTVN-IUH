@@ -22,7 +22,7 @@ void nhap1nv (NHANVIEN &nv)
     printf("\nNhap quan : ");
     gets(nv.quan);
     printf("\nNhap tinh trang : ");
-    gets(nv.tinhtrang);
+    scanf("%d",&nv.tinhtrang);
 }
 
 void nhapds(NHANVIEN ds[] , int &soluong)
