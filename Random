@@ -1,0 +1,4 @@
+The general equation for scaling and shifting a random number is
+n = a + rand() % b;
+where a is the shifting value (i.e., the first number in the desired range of consecutive integers)
+and b is the scaling factor (i.e,. the width of the desired range of consecutive integers)
