@@ -1,0 +1,52 @@
+#include<conio.h>
+#include<stdio.h>
+
+struct PHANSO
+{
+    int tuso;
+    int mauso;
+};
+void nhap(PHANSO &ps)
+{
+    printf("\nNhap tu so : ");
+    scanf("%d",&ps.tuso);
+    printf("\nNhap mau so : ");
+    scanf("%d",&ps.mauso);
+}
+void xuat(PHANSO ps)
+{
+    printf("%4d\n  ---\n%4d",ps.tuso,ps.mauso);
+}
+int ucln(PHANSO ps)
+{
+    if (ps.tuso == 0 || ps.mauso == 0){
+        return ps.tuso + ps.mauso;
+    }
+    while (ps.tuso != ps.mauso){
+        if (ps.tuso > ps.mauso){
+            ps.tuso -= ps.mauso;
+        }else{
+            ps.mauso -= ps.tuso;
+        }
+    }
+    return ps.tuso;
+}
+void toigian(PHANSO ps)
+{
+    int a = ps.tuso / ucln(ps);
+    int b = ps.mauso / ucln(ps);
+    printf("\n%4d\n  ---\n%4d",a,b);
+    if( b == 1 )
+    {
+        printf("    = %d",a/b);
+    }
+}
+int main()
+{
+    PHANSO ps;
+    nhap(ps);
+    printf("\nPhan so da nhap la : \n");
+    xuat(ps);
+    printf("\nPhan so toi gian la : \n");
+    toigian(ps);
+}
