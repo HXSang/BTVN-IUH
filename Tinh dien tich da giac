@@ -1,0 +1,103 @@
+#include<conio.h>
+#include<stdio.h>
+#include<math.h>
+struct point
+{
+    int x;
+    int y;
+};
+
+void nhap(point &p)
+{
+    printf("Nhap toa do diem ");
+    printf("\nNhap toa do X : ");
+    scanf("%d",&p.x);
+    printf("\nNhap toa do Y : ");
+    scanf("%d",&p.y);
+}
+void nhapds(point p[],int &n)
+{
+    printf("\nNhap so diem cua hinh : ");
+    scanf("%d",&n);
+    for (int i = 0 ; i < n ; i++)
+    {
+        printf("\nNhap diem thu %d : ",i+1);
+        nhap(p[i]);
+    }
+}
+void xuat(point p)
+{
+    printf("\nToa do X : %d",p.x);
+    printf("\nToa do Y : %d",p.y);
+}
+void xuatds(point p[],int n)
+{
+    printf("\nToa do cac diem cua hinh lan luot la : ");
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("\nToa do diem thu %d ",i+1);
+        xuat(p[i]);
+    }
+}
+float tinh(point p1 , point p2)
+{
+    return sqrt(pow((p1.x - p2.y),2)+pow((p1.y - p2.x),2));
+}
+void dodai(point p[],int n)
+{
+    int num = 0;
+    do
+    {
+
+        printf("\nDo dai cua diem %d den diem %d la %.2f",num + 1, num + 2,tinh(p[num],p[num+1]));
+        num = num + 1;
+    }
+    while(num < n-1);
+    printf("\nDo dai cua diem %d den diem 1 la %.2f",n,tinh(p[n-1],p[0]));
+
+}
+float dientich(point p1 , point p2 , point p3)
+{
+    return (abs( (p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y))) / 2.00;
+}
+void dientichtamgiac(point p[],int n)
+{
+    int dem = 0;
+    do
+    {
+        printf("\nDien tich cua tam giac duoc tao thanh tu cac dinh %d %d %d la %.2f ",dem + 1 , dem + 2 , dem + 3 , dientich(p[dem],p[dem+1],p[dem+2]));
+        dem  = dem + 1 ;
+    }
+    while(dem < n-2);
+}
+void dt(point p[],float t[] ,int n)
+{
+    int dem = 0 ;
+    do
+    {
+        t[dem] = dientich(p[dem],p[dem+1],p[dem+2]);
+        dem = dem + 1;
+    }
+    while(dem < n-2);
+}
+void dtdagiac(float t[] , int n)
+{
+    float tong = 0 ;
+    for(int i = 0 ; i < n-2 ; i++)
+    {
+         tong = tong + t[i];
+    }
+    printf("\nDien tich cua hinh da giac la %.2f",tong);
+}
+int main()
+{
+    point p[30];
+    float t[30];
+    int n;
+    nhapds(p,n);
+    xuatds(p,n);
+    dodai(p,n);
+    dientichtamgiac(p,n);
+    dt(p,t,n);
+    dtdagiac(t,n);
+}
