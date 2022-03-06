@@ -1,0 +1,60 @@
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+void input(int Q[] , int &n)
+{
+    printf("\Nhap so phan tu cua mang : ");
+    scanf("%d",&n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        Q[i] =rand();
+    }
+}
+void output(int Q[],int n)
+{
+    printf("\nCac phan tu la : ");
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("%d\t",Q[i]);
+    }
+}
+double Sum(int Q[],int n)
+{
+    if(n == 0)
+        return 0;
+    else
+        return Q[n-1] + Sum(Q,n-1);
+}
+int max_rec(int Q[],int n)
+{
+    if(n == 1)
+        return Q[0];
+    else
+        return Q[n-1] > max_rec(Q,n-1) ? Q[n-1] : max_rec(Q,n-1);
+}
+int min_rec(int Q[],int n)
+{
+     if(n == 1)
+        return Q[0];
+    else
+        return Q[n-1] < min_rec(Q,n-1) ? Q[n-1] : min_rec(Q,n-1);
+}
+long sum(int Q[], int n)
+{
+    if(n == 0)
+        return 0;
+    else
+        return Q[n-1] + sum(Q,n-1);
+}
+int main()
+{
+    int n;
+    int Q[n];
+    srand((int)time(0));
+    input(Q,n);
+    output(Q,n);
+    printf("\nTong cua cac phan tu trong mang la : %.0lf",Sum(Q,n));
+    printf("\nPhan tu lon nhat trong mang la : %d",max_rec(Q,n));
+    printf("\nPhan tu be nhat trong mang la : %d",min_rec(Q,n));
+    
+}
