@@ -1,0 +1,57 @@
+#include<math.h>
+#include<stdio.h>
+
+float tienlai(float sotien , int sothang )
+{
+    return sotien * pow((1+0.0072),sothang);
+}
+int main()
+{
+    int sothang,a, i = 1;
+    float tiengui,tongtien;
+    printf("\nNhap so tien gui : ");
+    scanf("%f",&tiengui);
+    printf("\nNhap so thang gui : ");
+    scanf("%d",&sothang);
+    printf("\nTong tien la : ");
+    tongtien = tienlai(tiengui,sothang);
+    printf("%.2f",tongtien);
+    do
+    {
+    printf("\nNhap so ");
+    scanf("%d",&a);
+        if(a == 0)
+        {
+            i = i +1 ;
+            printf("\nSo tien thang nay : ");
+            tongtien = tienlai(tiengui,sothang+i);
+            printf("%.2f",tongtien);
+        }
+        if(a > 0)
+        {
+            tongtien = tongtien + a ;
+            tongtien = tongtien + (tongtien * 0.72 / 100);
+            printf("\nTong tien thang nay la : ");
+            printf("%.2f",tongtien);
+        }
+         if(a < 0)
+        {
+            if(abs(a) > tongtien)
+            {
+                printf("\nKhong du so du");
+            }
+            else
+            {
+                tongtien = tongtien + a;
+                tongtien = tongtien + (tongtien * 0,71 / 100);
+                printf("\nTong tien thang nay la : ");
+                printf("%.2f",tongtien);
+            }
+        }
+    i++;
+    }
+    while(a == 0);
+
+
+}
+
