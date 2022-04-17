@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+
+typedef struct SINHVIEN
+{
+    char hoten[30];
+    char mssv[10];
+};
+
+
+void nhapsv(SINHVIEN &p)
+{
+    printf("\nNhap ten sinh vien : ");
+    fflush(stdin);
+    gets(p.hoten);
+    printf("\nNhap mssv sinh vien : ");
+    fflush(stdin);
+    gets(p.mssv);
+}
+void nhapds(SINHVIEN A[],int &n)
+{
+    printf("\nNhap so luong sinh vien : ");
+    scanf("%d",&n);
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("\nNhap sinh vien thu %d : ",i+1);
+        nhapsv(A[i]);
+    }
+}
+void xuatsv(SINHVIEN p)
+{
+    printf("\nHo ten : ");
+    puts(p.hoten);
+    printf("\nMssv : ");
+    puts(p.mssv);
+}
+void xuatds(SINHVIEN A[],int n)
+{
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("\nSinh vien thu %d : ",i+1);
+        xuatsv(A[i]);
+    }
+}
+void timkiem(SINHVIEN A[], int n)
+{
+    int count;
+    count = 0 ;
+    char c[MAX];
+    fflush(stdin);
+	printf("\n\nNhap MaSV can tim: ");
+	gets(c);
+
+	for(int i = 0 ; i < n ; i++)
+    {
+        if(strcmp(A[i].mssv,c)==0)
+        {
+            xuatsv(A[i]);
+            count++;
+        }
+    }
+    if(!count)
+    {
+       printf("\nKhong tim thay sinh vien nao!!!");
+    }
+}
+
+void themsv(SINHVIEN A[],int &n)
+{
+    int vt;
+    printf("\nNhap vi tri can them : ");
+    scanf("%d",&vt);
+    SINHVIEN tmp;
+    printf("\nNhap du lieu sinh vien can them : ");
+    nhapsv(tmp);
+    for(int i = n ; i > vt ; i--)
+    {
+        A[i] = A[i-1];
+    }
+    A[vt] = tmp;
+    n++;
+}
+void xoasv(SINHVIEN A[],int &n)
+{
+    int vt;
+    printf("\nNhap vi tri can xoa : ");
+    scanf("%d",&vt);
+    int a = vt - 1 ;
+    for(int i = a ; i < n ; i++)
+    {
+        A[i] = A[i+1];
+    }
+    n--;
+}
+int main()
+{
+    int n;
+    SINHVIEN A[MAX];
+
+    nhapds(A,n);
+
+    xuatds(A,n);
+
+    timkiem(A,n);
+
+    themsv(A,n);
+
+    xuatds(A,n);
+
+    xoasv(A,n);
+
+    xuatds(A,n);
+}
